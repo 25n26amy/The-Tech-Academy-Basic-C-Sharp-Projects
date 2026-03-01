@@ -1,21 +1,29 @@
-﻿using System; // Allows access to basic system functions like Console
+﻿using System; // Allows us to use Console and other system functions
 
-// Define a custom class named MathOperations
-class MathOperations
+// Define an interface named IQuittable
+// An interface is a contract that any class implementing it must follow
+interface IQuittable
 {
-    // Create a void method that takes two integers as parameters
-    // "number1" will be used in a math operation
-    // "number2" will simply be displayed to the screen
-    public void PerformOperation(int number1, int number2)
+    // Define a void method named Quit
+    // Any class implementing this interface MUST implement this method
+    void Quit();
+}
+
+// Define a class named Employee
+// The colon (:) means Employee is implementing the IQuittable interface
+class Employee : IQuittable
+{
+    // Create some example properties for the Employee class
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public int Id { get; set; }
+
+    // Implement the Quit() method required by the IQuittable interface
+    // Since the interface defines it, we must provide the method body here
+    public void Quit()
     {
-        // Perform a math operation on the first integer (multiply it by 2)
-        int result = number1 * 2;
-
-        // Display the result of the math operation
-        Console.WriteLine("The result of number1 multiplied by 2 is: " + result);
-
-        // Display the second integer
-        Console.WriteLine("The second number is: " + number2);
+        // Display a message indicating the employee has quit
+        Console.WriteLine(FirstName + " " + LastName + " has quit the company.");
     }
 }
 
@@ -25,16 +33,24 @@ class Program
     // Entry point of the application
     static void Main(string[] args)
     {
-        // Instantiate (create an object of) the MathOperations class
-        MathOperations mathObj = new MathOperations();
+        // Create an Employee object
+        Employee emp = new Employee();
 
-        // Call the method normally by passing two integers
-        mathObj.PerformOperation(5, 10);
+        // Assign values to the Employee properties
+        emp.FirstName = "John";
+        emp.LastName = "Doe";
+        emp.Id = 1;
 
-        // Call the method again, specifying the parameters by name
-        mathObj.PerformOperation(number1: 7, number2: 20);
+        // Use polymorphism:
+        // Create an object of type IQuittable
+        // Even though the object is stored as IQuittable,
+        // it is actually an Employee object underneath
+        IQuittable quittableEmployee = emp;
 
-        // Pause the console so the window doesn't close immediately
+        // Call the Quit() method using the interface type
+        quittableEmployee.Quit();
+
+        // Pause the console so it does not close immediately
         Console.ReadLine();
     }
 }
