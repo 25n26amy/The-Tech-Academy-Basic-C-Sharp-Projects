@@ -1,56 +1,45 @@
-﻿using System; // Allows us to use Console and other system functions
+﻿// Include our namespace
+using EmployeeComparisonApp;
 
-// Define an interface named IQuittable
-// An interface is a contract that any class implementing it must follow
-interface IQuittable
+// Create a namespace for our program
+namespace EmployeeComparisonApp
 {
-    // Define a void method named Quit
-    // Any class implementing this interface MUST implement this method
-    void Quit();
-}
-
-// Define a class named Employee
-// The colon (:) means Employee is implementing the IQuittable interface
-class Employee : IQuittable
-{
-    // Create some example properties for the Employee class
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public int Id { get; set; }
-
-    // Implement the Quit() method required by the IQuittable interface
-    // Since the interface defines it, we must provide the method body here
-    public void Quit()
+    class Program
     {
-        // Display a message indicating the employee has quit
-        Console.WriteLine(FirstName + " " + LastName + " has quit the company.");
-    }
-}
+        static void Main(string[] args)
+        {
+            // Create first Employee object
+            Employee employee1 = new Employee();
 
-// Main program class
-class Program
-{
-    // Entry point of the application
-    static void Main(string[] args)
-    {
-        // Create an Employee object
-        Employee emp = new Employee();
+            // Assign values to employee1 properties
+            employee1.Id = 1;
+            employee1.FirstName = "John";
+            employee1.LastName = "Smith";
 
-        // Assign values to the Employee properties
-        emp.FirstName = "John";
-        emp.LastName = "Doe";
-        emp.Id = 1;
+            // Create second Employee object
+            Employee employee2 = new Employee();
 
-        // Use polymorphism:
-        // Create an object of type IQuittable
-        // Even though the object is stored as IQuittable,
-        // it is actually an Employee object underneath
-        IQuittable quittableEmployee = emp;
+            // Assign values to employee2 properties
+            employee2.Id = 1;  // Same Id to test equality
+            employee2.FirstName = "Jane";
+            employee2.LastName = "Doe";
 
-        // Call the Quit() method using the interface type
-        quittableEmployee.Quit();
+            // Compare employees using overloaded == operator
+            bool areEqual = employee1 == employee2;
 
-        // Pause the console so it does not close immediately
-        Console.ReadLine();
+            // Display result of ==
+            Console.WriteLine("Using == operator:");
+            Console.WriteLine("Are employees equal? " + areEqual);
+
+            // Compare employees using overloaded != operator
+            bool areNotEqual = employee1 != employee2;
+
+            // Display result of !=
+            Console.WriteLine("Using != operator:");
+            Console.WriteLine("Are employees NOT equal? " + areNotEqual);
+
+            // Pause so console stays open
+            Console.ReadLine();
+        }
     }
 }
