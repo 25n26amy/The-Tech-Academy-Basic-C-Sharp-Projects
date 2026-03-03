@@ -1,40 +1,55 @@
-﻿using System; // Allows us to use basic system functions like Console
+﻿using System; // Allows us to use Console and basic system functions
 
-// Define a custom class called MathOperations
-class MathOperations
-{
-    // This method takes two integers as parameters
-    // It performs a math operation on the first integer
-    // Then it displays the second integer to the screen
-    public void DoMath(int firstNumber, int secondNumber)
-    {
-        // Perform a math operation on the first integer (multiply by 2)
-        int result = firstNumber * 2;
-
-        // Display the result of the math operation
-        Console.WriteLine("The result of the math operation on the first number is: " + result);
-
-        // Display the second integer to the screen
-        Console.WriteLine("The second number is: " + secondNumber);
-    }
-}
-
-// Main program class
 class Program
 {
-    // Entry point of the console application
     static void Main(string[] args)
     {
-        // Instantiate (create an object of) the MathOperations class
-        MathOperations mathObject = new MathOperations();
+        // Display welcome message as required
+        Console.WriteLine("Welcome to Package Express. Please follow the instructions below.");
 
-        // Call the method by passing two numbers normally
-        mathObject.DoMath(5, 10);
+        // Prompt user for package weight
+        Console.WriteLine("Please enter the package weight:");
+        decimal weight = Convert.ToDecimal(Console.ReadLine());
 
-        // Call the method again, specifying the parameters by name
-        mathObject.DoMath(firstNumber: 7, secondNumber: 20);
+        // If weight is greater than 50, display error and end program
+        if (weight > 50)
+        {
+            Console.WriteLine("Package too heavy to be shipped via Package Express. Have a good day.");
+            return; // Ends the program immediately
+        }
 
-        // Keep the console window open until user presses a key
+        // Prompt user for package width
+        Console.WriteLine("Please enter the package width:");
+        decimal width = Convert.ToDecimal(Console.ReadLine());
+
+        // Prompt user for package height
+        Console.WriteLine("Please enter the package height:");
+        decimal height = Convert.ToDecimal(Console.ReadLine());
+
+        // Prompt user for package length
+        Console.WriteLine("Please enter the package length:");
+        decimal length = Convert.ToDecimal(Console.ReadLine());
+
+        // Check if total dimensions exceed 50
+        if (width + height + length > 50)
+        {
+            Console.WriteLine("Package too big to be shipped via Package Express.");
+            return; // Ends the program
+        }
+
+        // Multiply dimensions together
+        decimal volume = width * height * length;
+
+        // Multiply volume by weight and divide by 100
+        decimal quote = (volume * weight) / 100;
+
+        // Display quote formatted as currency with 2 decimal places
+        Console.WriteLine("Your estimated total for shipping this package is: $" + quote.ToString("F2"));
+
+        // Thank the user
+        Console.WriteLine("Thank you!");
+
+        // Keep console window open
         Console.ReadLine();
     }
 }
